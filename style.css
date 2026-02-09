@@ -1,0 +1,729 @@
+/* ========================================
+   VISTORIA IMOBILIÁRIA PWA - CSS PREMIUM
+   Design: Dourado #D4A574 + Grafite #2C2C2C
+   Otimizado para Samsung Galaxy A31
+   ======================================== */
+
+:root {
+    /* Cores Premium */
+    --dourado-principal: #D4A574;
+    --dourado-escuro: #C29563;
+    --dourado-claro: #E5C9A3;
+    --grafite-escuro: #2C2C2C;
+    --grafite-medio: #4A4A4A;
+    --grafite-claro: #6B6B6B;
+    --cinza-bg: #F5F5F5;
+    --cinza-card: #FFFFFF;
+    --vermelho: #C44536;
+    --verde: #2D6A4F;
+    
+    /* Tipografia */
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Montserrat', sans-serif;
+    
+    /* Espaçamentos */
+    --spacing-xs: 8px;
+    --spacing-sm: 12px;
+    --spacing-md: 20px;
+    --spacing-lg: 32px;
+    --spacing-xl: 48px;
+    
+    /* Sombras */
+    --shadow-sm: 0 2px 8px rgba(44, 44, 44, 0.08);
+    --shadow-md: 0 4px 16px rgba(44, 44, 44, 0.12);
+    --shadow-lg: 0 8px 24px rgba(44, 44, 44, 0.16);
+    --shadow-dourado: 0 4px 16px rgba(212, 165, 116, 0.25);
+    
+    /* Bordas */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+}
+
+/* ========================================
+   RESET & BASE
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--grafite-escuro);
+    background: linear-gradient(135deg, #F5F5F5 0%, #E8E8E8 100%);
+    line-height: 1.6;
+    overflow-x: hidden;
+    
+    /* Aceleração de Hardware */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* ========================================
+   TIPOGRAFIA PREMIUM
+   ======================================== */
+
+h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--dourado-principal);
+    margin-bottom: var(--spacing-md);
+}
+
+.section-title {
+    font-size: 1.75rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+    padding-bottom: var(--spacing-sm);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--dourado-principal), transparent);
+}
+
+/* ========================================
+   LAYOUT
+   ======================================== */
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-md);
+}
+
+.section-card {
+    background: var(--cinza-card);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.section-card.locked {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* ========================================
+   STATUS BAR
+   ======================================== */
+
+.status-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--grafite-escuro);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-md);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.status-bar span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* ========================================
+   HEADER & LOGO
+   ======================================== */
+
+.app-header {
+    text-align: center;
+    padding: var(--spacing-lg) 0;
+    margin-bottom: var(--spacing-md);
+}
+
+.logo-header {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(var(--shadow-sm));
+}
+
+/* ========================================
+   CHECK-IN
+   ======================================== */
+
+.checkin-pending,
+.checkin-complete {
+    text-align: center;
+}
+
+.gps-status {
+    margin-bottom: var(--spacing-lg);
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto var(--spacing-md);
+    border: 4px solid var(--cinza-bg);
+    border-top-color: var(--dourado-principal);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.checkin-note {
+    color: var(--grafite-medio);
+    font-size: 0.875rem;
+    margin-top: var(--spacing-md);
+}
+
+.checkin-info {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-left: 4px solid var(--verde);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.checkin-details p,
+.tempo-espera p {
+    margin: var(--spacing-xs) 0;
+    font-size: 0.95rem;
+}
+
+.tempo-note {
+    color: var(--vermelho);
+    font-weight: 600;
+    margin-top: var(--spacing-sm);
+}
+
+/* ========================================
+   FORMULÁRIOS
+   ======================================== */
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    color: var(--grafite-escuro);
+    margin-bottom: var(--spacing-xs);
+    font-size: 0.95rem;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #E0E0E0;
+    border-radius: var(--radius-md);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--dourado-principal);
+    box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+}
+
+.form-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* ========================================
+   BOTÕES PREMIUM
+   ======================================== */
+
+button {
+    font-family: var(--font-body);
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--dourado-principal) 0%, var(--dourado-escuro) 100%);
+    color: white;
+    padding: 14px 28px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-dourado);
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 165, 116, 0.35);
+}
+
+.btn-primary:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-secondary {
+    background: var(--grafite-escuro);
+    color: var(--dourado-principal);
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: var(--grafite-medio);
+    transform: translateY(-1px);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--dourado-principal);
+    color: var(--dourado-principal);
+}
+
+.btn-outline:hover {
+    background: var(--dourado-principal);
+    color: white;
+}
+
+.btn-danger {
+    background: var(--vermelho);
+    color: white;
+}
+
+.btn-danger.btn-outline {
+    background: transparent;
+    border-color: var(--vermelho);
+    color: var(--vermelho);
+}
+
+.btn-danger.btn-outline:hover {
+    background: var(--vermelho);
+    color: white;
+}
+
+.btn-large {
+    width: 100%;
+    padding: 18px 32px;
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.btn-icon {
+    font-size: 1.2em;
+}
+
+.btn-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+/* ========================================
+   BLOCOS DE VISTORIA
+   ======================================== */
+
+.bloco-vistoria {
+    background: #FAFAFA;
+    border: 2px solid #E0E0E0;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    position: relative;
+}
+
+.bloco-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.bloco-label {
+    font-weight: 700;
+    color: var(--grafite-escuro);
+    font-size: 1.1rem;
+}
+
+.foto-counter {
+    background: var(--dourado-principal);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.sugestoes-container {
+    margin: var(--spacing-sm) 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
+.sugestao-chip {
+    background: white;
+    border: 1px solid var(--dourado-principal);
+    color: var(--dourado-principal);
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sugestao-chip:hover {
+    background: var(--dourado-principal);
+    color: white;
+}
+
+.fotos-acoes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-md) 0;
+}
+
+.galeria-fotos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: var(--spacing-sm);
+    margin: var(--spacing-md) 0;
+}
+
+.foto-thumbnail {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+}
+
+.foto-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.foto-thumbnail .delete-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: var(--vermelho);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.foto-thumbnail:hover .delete-btn {
+    opacity: 1;
+}
+
+.foto-counter-total {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--grafite-escuro);
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: var(--radius-md);
+}
+
+.foto-counter-total span {
+    color: var(--dourado-principal);
+    font-size: 1.3rem;
+}
+
+/* ========================================
+   ASSINATURAS
+   ======================================== */
+
+.assinatura-vistoriador {
+    margin-bottom: var(--spacing-lg);
+}
+
+.assinatura-vistoriador label {
+    font-weight: 700;
+    color: var(--grafite-escuro);
+    margin-bottom: var(--spacing-sm);
+    display: block;
+}
+
+.assinatura-imagem {
+    background: white;
+    border: 2px solid var(--dourado-principal);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.assinatura-svg {
+    width: 100%;
+    height: auto;
+    max-width: 400px;
+    display: block;
+    margin: 0 auto;
+}
+
+.assinatura-cliente-card {
+    background: #FAFAFA;
+    border: 2px solid #E0E0E0;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.signature-pad {
+    width: 100%;
+    height: 200px;
+    border: 2px dashed var(--dourado-principal);
+    border-radius: var(--radius-md);
+    background: white;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.certificacao-autenticidade {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-left: 4px solid var(--dourado-principal);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    margin-top: var(--spacing-xl);
+}
+
+.certificacao-autenticidade h3 {
+    color: var(--grafite-escuro);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.certificacao-autenticidade p {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    text-align: justify;
+    color: var(--grafite-medio);
+}
+
+/* ========================================
+   PROGRESS OVERLAY
+   ======================================== */
+
+.pdf-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+}
+
+.pdf-progress-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+}
+
+.pdf-progress-card h2 {
+    color: var(--grafite-escuro);
+    margin-bottom: var(--spacing-md);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: #E0E0E0;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: var(--spacing-md) 0;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--dourado-principal), var(--dourado-escuro));
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--grafite-escuro);
+    margin: var(--spacing-sm) 0;
+}
+
+.progress-note {
+    font-size: 0.85rem;
+    color: var(--grafite-medio);
+    margin-top: var(--spacing-md);
+}
+
+/* ========================================
+   MODAL
+   ======================================== */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+}
+
+.modal-content {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    max-width: 500px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+}
+
+.modal-content h2 {
+    color: var(--grafite-escuro);
+    font-size: 1.3rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.modal-valor {
+    background: #FFF3CD;
+    border-left: 4px solid #FFC107;
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    margin: var(--spacing-md) 0;
+}
+
+.modal-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .app-container {
+        padding: var(--spacing-sm);
+    }
+    
+    .section-card {
+        padding: var(--spacing-md);
+    }
+    
+    .section-title {
+        font-size: 1.4rem;
+    }
+    
+    .btn-group {
+        grid-template-columns: 1fr;
+    }
+    
+    .galeria-fotos {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+}
+
+/* ========================================
+   MODO ULTRA ECONOMIA (Ativado via JS)
+   ======================================== */
+
+body.ultra-economia {
+    background: #F5F5F5;
+}
+
+body.ultra-economia .section-card {
+    box-shadow: var(--shadow-sm);
+}
+
+body.ultra-economia * {
+    animation: none !important;
+    transition: none !important;
+}
+
+/* ========================================
+   UTILITIES
+   ======================================== */
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+.hidden { display: none !important; }
+
+/* Print Styles */
+@media print {
+    .status-bar,
+    .btn-primary,
+    .btn-secondary,
+    .btn-danger,
+    #section-actions,
+    .delete-btn {
+        display: none !important;
+    }
+}
