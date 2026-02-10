@@ -5,11 +5,11 @@
 
 const CACHE_NAME = 'vistoria-v1.0.0';
 const CACHE_ASSETS = [
-    '/',
-    '/index.html',
-    '/style.css',
-    '/app.js',
-    '/manifest.json',
+    './',
+    './index.html',
+    './style.css',
+    './app.js',
+    './manifest.json',
     'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@400;500;600;700&display=swap',
     'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
     'https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js'
@@ -93,7 +93,7 @@ self.addEventListener('fetch', (event) => {
                         console.error('[SW] Erro de rede:', error);
                         
                         // Retornar página offline se disponível
-                        return caches.match('/index.html');
+                        return caches.match('./index.html');
                     });
             })
     );
