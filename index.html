@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#D4A574">
+    <meta name="description" content="PWA Profissional para Vistorias Imobiliárias - Emilio Paulo Granata">
+    
+    <title>Vistoria Imobiliária Premium | CRECI 50.583</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==">
+    
+    <!-- Fonts Premium -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+    <!-- Status Bar -->
+    <div id="status-bar" class="status-bar">
+        <span id="network-status">🟢 Online</span>
+        <span id="battery-status"></span>
+        <span id="storage-status"></span>
+    </div>
+
+    <!-- Main Container -->
+    <div class="app-container">
+        
+        <!-- Header com Logo -->
+        <header class="app-header">
+            <img src="" id="logo-header" alt="Emilio Paulo Granata - Serviços Técnicos Imobiliários" class="logo-header">
+        </header>
+
+        <!-- CHECK-IN OBRIGATÓRIO -->
+        <section id="section-checkin" class="section-card">
+            <h1 class="section-title">CHECK-IN OBRIGATÓRIO</h1>
+            
+            <div id="checkin-pending" class="checkin-pending">
+                <div class="gps-status">
+                    <div class="spinner"></div>
+                    <p>📍 Obtendo localização GPS...</p>
+                </div>
+                
+                <button id="btn-checkin" class="btn-primary btn-large" disabled>
+                    <span class="btn-icon">📍</span>
+                    CHEGADA AO LOCAL
+                </button>
+                
+                <p class="checkin-note">Pressione o botão ao chegar no imóvel</p>
+            </div>
+
+            <div id="checkin-complete" class="checkin-complete" style="display:none;">
+                <div class="checkin-info">
+                    <h3>✅ Check-in Realizado</h3>
+                    <div class="checkin-details">
+                        <p><strong>📍 Coordenadas:</strong> <span id="checkin-coords"></span></p>
+                        <p><strong>🕐 Data/Hora:</strong> <span id="checkin-datetime"></span></p>
+                        <p><strong>🌙 Adicional Noturno:</strong> <span id="checkin-noturno"></span></p>
+                    </div>
+                    
+                    <div class="tempo-espera">
+                        <p><strong>⏱️ Tempo de Espera:</strong> <span id="tempo-espera">00:00:00</span></p>
+                        <p class="tempo-note" id="tempo-note"></p>
+                    </div>
+                </div>
+
+                <button id="btn-impedimento" class="btn-danger btn-outline">
+                    🚫 IMPEDIMENTO DE ACESSO
+                </button>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 1: DADOS DO IMÓVEL -->
+        <section id="section-1" class="section-card locked" style="display:none;">
+            <h1 class="section-title">1. DADOS DO IMÓVEL</h1>
+
+            <div class="form-group">
+                <label for="contratante">1a. Contratante:</label>
+                <input type="text" id="contratante" list="contratantes-list" class="form-input" placeholder="Digite ou selecione...">
+                <datalist id="contratantes-list"></datalist>
+            </div>
+
+            <div class="form-group">
+                <label for="endereco">1b. Endereço do Imóvel:</label>
+                <input type="text" id="endereco" class="form-input" placeholder="Rua, número, complemento, bairro, cidade">
+            </div>
+
+            <div class="form-group">
+                <label for="tipo-imovel">1c. Tipo de Imóvel:</label>
+                <select id="tipo-imovel" class="form-select">
+                    <option value="">Selecione...</option>
+                    <option value="Residencial">Residencial</option>
+                    <option value="Comercial">Comercial</option>
+                    <option value="Terreno">Terreno</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="tipologia">1d. Tipologia:</label>
+                <input type="text" id="tipologia" list="tipologias-list" class="form-input" placeholder="Selecione o tipo primeiro...">
+                <datalist id="tipologias-list"></datalist>
+            </div>
+
+            <div class="form-group">
+                <label for="modalidade">1e. Modalidade de Vistoria:</label>
+                <select id="modalidade" class="form-select">
+                    <option value="">Selecione...</option>
+                    <option value="Vistoria de entrada">Vistoria de entrada</option>
+                    <option value="Vistoria de saída">Vistoria de saída</option>
+                    <option value="Vistoria fotográfica (registro)">Vistoria fotográfica (registro)</option>
+                    <option value="Vistoria de entrega de chaves" data-hide-for="Terreno">Vistoria de entrega de chaves</option>
+                    <option value="Vistoria de conferências diversas">Vistoria de conferências diversas</option>
+                    <option value="Vistoria de recebimento para venda">Vistoria de recebimento para venda</option>
+                    <option value="Vistoria Periódica">Vistoria Periódica</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="faixa-metragem">1f. Faixa de Metragem:</label>
+                <select id="faixa-metragem" class="form-select">
+                    <option value="">Selecione o tipo primeiro...</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 2: VISTORIA -->
+        <section id="section-2" class="section-card locked" style="display:none;">
+            <h1 class="section-title">2. VISTORIA DE <span id="tipo-ambiente">CÔMODOS</span></h1>
+
+            <div id="blocos-vistoria">
+                <!-- Blocos serão adicionados dinamicamente -->
+            </div>
+
+            <button id="btn-adicionar-bloco" class="btn-secondary btn-outline">
+                <span class="btn-icon">+</span>
+                ADICIONAR
+            </button>
+
+            <div class="foto-counter-total">
+                <strong>Nº total de fotos:</strong> <span id="total-fotos-global">0</span>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3: ASSINATURAS -->
+        <section id="section-3" class="section-card locked" style="display:none;">
+            <h1 class="section-title">3. ASSINATURAS</h1>
+
+            <div class="assinatura-vistoriador">
+                <label>3a. Vistoriador:</label>
+                <div class="assinatura-imagem">
+                    <svg viewBox="0 0 400 100" class="assinatura-svg">
+                        <text x="10" y="60" font-family="'Brush Script MT', cursive" font-size="48" fill="#003366" opacity="0.9">
+                            Emilio Paulo Granata
+                        </text>
+                    </svg>
+                </div>
+            </div>
+
+            <div id="assinaturas-clientes">
+                <!-- Assinaturas de clientes serão adicionadas aqui -->
+            </div>
+
+            <button id="btn-nova-assinatura" class="btn-secondary btn-outline">
+                <span class="btn-icon">+</span>
+                Nova Assinatura
+            </button>
+
+            <div class="certificacao-autenticidade">
+                <h3>⚖️ CERTIFICAÇÃO DE AUTENTICIDADE</h3>
+                <p>Este laudo de vistoria é um documento pericial inviolável, certificado pela identificação do Vistoriador Emilio Paulo Granata, contendo evidências fotográficas gravadas com coordenadas geográficas de precisão (GPS) e carimbo de data/hora, assegurando a integridade e a veracidade das condições do imóvel no ato da inspeção.</p>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 4: VALORES (Somente no PDF) -->
+        <div id="section-4-hidden" style="display:none;">
+            <h1>4. VALORES E HONORÁRIOS</h1>
+            <div id="valor-calculado"></div>
+        </div>
+
+        <!-- BOTÕES DE AÇÃO -->
+        <section id="section-actions" class="section-card locked" style="display:none;">
+            <button id="btn-gerar-pdf" class="btn-primary btn-large">
+                <span class="btn-icon">📄</span>
+                GERAR PDF
+            </button>
+
+            <div class="btn-group">
+                <button id="btn-enviar-email" class="btn-secondary" disabled>
+                    <span class="btn-icon">📧</span>
+                    ENVIO E-MAIL
+                </button>
+                <button id="btn-enviar-whatsapp" class="btn-secondary" disabled>
+                    <span class="btn-icon">📱</span>
+                    ENVIO WHATSAPP
+                </button>
+            </div>
+
+            <button id="btn-limpar-formulario" class="btn-danger btn-outline">
+                <span class="btn-icon">🗑️</span>
+                LIMPAR FORMULÁRIO
+            </button>
+        </section>
+
+    </div>
+
+    <!-- Progress Overlay -->
+    <div id="pdf-overlay" class="pdf-overlay" style="display:none;">
+        <div class="pdf-progress-card">
+            <h2>Gerando PDF...</h2>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <p class="progress-text">
+                <span id="progress-percent">0%</span> - 
+                Processando foto <span id="current-photo">0</span> de <span id="total-photos">0</span>
+            </p>
+            <p class="progress-note">Aguarde, não feche o aplicativo</p>
+        </div>
+    </div>
+
+    <!-- Modal Impedimento -->
+    <div id="modal-impedimento" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h2>⚠️ CONFIRMAR IMPEDIMENTO DE ACESSO</h2>
+            <div class="form-group">
+                <label>Motivo do impedimento:</label>
+                <select id="motivo-impedimento" class="form-select">
+                    <option value="Ausência de chaves">Ausência de chaves</option>
+                    <option value="Negativa de entrada">Negativa de entrada</option>
+                    <option value="Ausência das partes">Ausência das partes</option>
+                    <option value="Outro">Outro</option>
+                </select>
+                <input type="text" id="motivo-outro" class="form-input" placeholder="Especifique..." style="display:none; margin-top: 10px;">
+            </div>
+            <p class="modal-valor">Valor cobrado: <strong id="valor-impedimento">R$ 0,00</strong> (50% do valor base)</p>
+            <div class="modal-actions">
+                <button id="btn-cancelar-impedimento" class="btn-secondary">CANCELAR</button>
+                <button id="btn-confirmar-impedimento" class="btn-danger">GERAR AUTO</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Canvas oculto para processamento -->
+    <canvas id="photo-canvas" style="display:none;"></canvas>
+    <canvas id="thumbnail-canvas" style="display:none;"></canvas>
+
+    <!-- Input de câmera/arquivo (oculto) -->
+    <input type="file" id="camera-input" accept="image/*" capture="environment" style="display:none;" multiple>
+    <input type="file" id="file-input" accept="image/*" style="display:none;" multiple>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+    <script>
+        // Registrar Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('✅ Service Worker registrado'))
+                .catch(err => console.error('❌ Erro ao registrar SW:', err));
+        }
+    </script>
+</body>
+</html>
